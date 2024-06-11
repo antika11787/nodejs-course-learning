@@ -13,8 +13,10 @@ router.get("/", (req, res, next) => {
   res.render("shop", {
     prods: products,
     pageTitle: "Shop",
-    path: "/",
-    hasProducts: products.length > 0,
+    path: "/", // for pug and ejs
+    hasProducts: products.length > 0, // for handlebars
+    activeShop: true,
+    productCSS: true,
   });
 });
 
