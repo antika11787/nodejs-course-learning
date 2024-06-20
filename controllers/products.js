@@ -1,25 +1,35 @@
-const products = [];
+const Product = require("../models/products");
 
-exports.getAddProduct = (req, res, next) => {
-  res.render("add-product", {
-    pageTitle: "Add product",
-    path: "/admin/add-product",
-    productCSS: true,
-    activeAddProduct: true,
+exports.getProducts = (req, res, next) => {
+  Product.fetchAll((products) => {
+    res.render("shop/product-list", {
+      prods: products,
+      pageTitle: "Products",
+      path: "/products",
+    });
   });
 };
 
-exports.postProducts = (req, res, next) => {
-  products.push({ title: req.body.title });
-  res.redirect("/");
+exports.getIndex = (req, res, next) => {
+  Product.fetchAll((products) => {
+    res.render("shop/index", {
+      prods: products,
+      pageTitle: "Shop",
+      path: "/",
+    });
+  });
 };
 
-exports.getProducts = (req, res, next) => {
-  res.render("shop", {
-    prods: products,
-    pageTitle: "Shop",
-    path: "/",
-    activeShop: true,
-    productCSS: true,
+exports.getCart = (req, res, next) => {
+  res.render("shop/cart", {
+    pageTitle: "Your Cart",
+    path: "/cart",
+  });
+};
+
+exports.getCheckout = (req, res, next) => {
+  res.render("shop/checkout", {
+    pageTitle: "Checkout",
+    path: "/cart",
   });
 };
