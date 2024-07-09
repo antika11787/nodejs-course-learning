@@ -1,4 +1,5 @@
 const Product = require("../models/products");
+const Cart = require("../models/cart");
 
 exports.getProducts = (req, res, next) => {
   Product.fetchAll((products) => {
@@ -39,8 +40,11 @@ exports.getCart = (req, res, next) => {
 };
 
 exports.postCart = (req, res, next) => {
-  // in the input field of product details page, hte name of the input field is set to productId
+  // in the input field of product details page, the name of the input field is set to productId
   const prodId = req.body.productId;
+  Product.findById(prodId, (product) => {
+    Cart.addProduct(prodId, product.price);
+  });
   console.log("prodId", prodId);
 };
 
